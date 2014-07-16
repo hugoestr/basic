@@ -13,6 +13,7 @@ class Basic
     @functions = Object.new
     @commands = {
       "PRINT" => :print,
+      "LET"  => :let,
       "END" => :end
     }
     @source = []
@@ -46,8 +47,11 @@ class Basic
   end
 
   def print(input)
-    puts input
-    input
+    token = input.shift
+    value = (token =~ /^\w$/) ? get_var(token) : token
+    value = value.to_i.to_s if value.is_a? Float
+    puts value
+    value
   end
 
   def rem(input)
@@ -127,6 +131,7 @@ class Basic
   line = @stack.pop
   goto (line + 1)
  end
+
 
  def evaluate(args)
    result = nil
@@ -225,6 +230,10 @@ class Basic
     end
 
     result
+  end
+
+  def get_var(name)
+    @variables[name]
   end
 
   def parse_expression(items)

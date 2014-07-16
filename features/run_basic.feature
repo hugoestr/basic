@@ -7,4 +7,14 @@ Feature: run the BASIC interpreter
   Scenario: run hello world
     Given I have a hello world program
     When I run the interpreter
-    Then I should get as output "Hello, World!"
+    Then I should get as output 'Hello, World!'
+
+  Scenario: print a number
+    Given I have a 'print number' program
+    When I run the interpreter
+    Then I should get as output '4'
+
+  Scenario: print a variable
+    Given I have a 'print var' program
+    When I run the interpreter
+    Then I should get as output '10'

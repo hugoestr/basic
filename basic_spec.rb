@@ -5,11 +5,21 @@ describe Basic do
   before :each do
     @b = Basic.new
   end
-  
-  it "print should return the next string" do
-    expected = "value"
-    result = @b.print expected
-    result.should == expected
+ 
+  describe "print" do 
+    it "should return the next string" do
+      expected = "value"
+      result = @b.print ["value"]
+      result.should == expected
+    end
+
+    it "should check for variables" do
+      @b.let ["D", "=", "54"]
+      result = @b.print ["D"]      
+      result.should == "54"
+    end
+
+    
   end
 
   it "rem should return nothing" do
@@ -286,5 +296,7 @@ describe Basic do
     result = @b.read_line "10 LET A = 4 + 3 * 5 ^ 2"
     result.should ==  [10, "LET",["A", "=", 79.0]]
   end
-  
+
+  describe "running the interpreter" do
+  end  
 end
