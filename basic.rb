@@ -47,9 +47,12 @@ class Basic
   end
 
   def print(input)
-    token = input.shift
+    input = parse_math input  if input.count > 1 
+    token = (input.is_a? Array) ? input.shift : input
+     
     value = (token =~ /^[a-zA-Z]$/) ? get_var(token) : token
     value = value.to_i.to_s if value.is_a? Float
+
     puts value
     value
   end
@@ -256,12 +259,14 @@ class Basic
     return items if not flag # back if not assignment in the statement
 
     # Parse the mathematical stuff
-    p = Parser.new 
-    p.parse after
-
-    expr = p.expression.to_r
-    before << eval(expr)
+    before << parse_math(after)
   end
 
+  def parse_math(tokens)
+    p = Parser.new 
+    p.parse tokens
+    expr = p.expression.to_r
+    (eval expr)
+  end
 end
 

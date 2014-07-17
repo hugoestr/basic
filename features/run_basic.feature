@@ -18,3 +18,8 @@ Feature: run the BASIC interpreter
     Given I have a 'print var' program
     When I run the interpreter
     Then I should get as output '10'
+  
+  Scenario: print an addition
+    Given I have a 'print addition' program
+    When I run the interpreter
+    Then I should get as output '4'

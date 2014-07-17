@@ -19,6 +19,15 @@ describe Basic do
       result.should == "54"
     end
 
+    it "should print numbers" do
+      result = @b.print ["45"]      
+      result.should == "45"
+    end
+
+    it "should print evaluations" do
+      result = @b.print ["45", "+", "2"]      
+      result.should == "47"
+    end
     
   end
 
