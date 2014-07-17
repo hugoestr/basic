@@ -28,7 +28,11 @@ describe Basic do
       result = @b.print ["45", "+", "2"]      
       result.should == "47"
     end
-    
+   
+    it "should print new line if no argument is provided" do
+      result = @b.print
+      result.should == '\n'
+    end 
   end
 
   it "rem should return nothing" do

@@ -46,7 +46,8 @@ class Basic
     @program[line.to_f] = args
   end
 
-  def print(input)
+  def print( input = ['\n'])
+
     input = parse_math input  if input.count > 1 
     token = (input.is_a? Array) ? input.shift : input
      

@@ -23,3 +23,9 @@ Feature: run the BASIC interpreter
     Given I have a 'print addition' program
     When I run the interpreter
     Then I should get as output '4'
+
+   Scenario: print new line 
+    Given I have a 'print newline' program
+    When I run the interpreter
+    Then I should get as output '\nover here!'
+

@@ -17,6 +17,7 @@ end
 
 Then /I should get as output '(.+)'/ do |content|
   output = File.read(@output)
-  result = output.scan content
-  result.count.should > 0
+  result = output.match content
+  result.should_not be nil
 end
+
