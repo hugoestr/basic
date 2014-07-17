@@ -48,7 +48,7 @@ class Basic
 
   def print(input)
     token = input.shift
-    value = (token =~ /^\w$/) ? get_var(token) : token
+    value = (token =~ /^[a-zA-Z]$/) ? get_var(token) : token
     value = value.to_i.to_s if value.is_a? Float
     puts value
     value
