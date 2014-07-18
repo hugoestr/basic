@@ -33,6 +33,16 @@ describe Basic do
       result = @b.print
       result.should == '\n'
     end 
+
+    it " should print numbers into different zones" do
+      result = @b.print ["1", ",", "2"]
+      result.should == '1              2'
+    end
+
+    it "should go into a new line if it has run out of the five regions" do
+      result = @b.print %w( 1 , 2 , 3 , 4 , 5 , 6 )
+      result.should match '\n' 
+    end
   end
 
   it "rem should return nothing" do

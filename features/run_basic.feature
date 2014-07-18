@@ -29,3 +29,18 @@ Feature: run the BASIC interpreter
     When I run the interpreter
     Then I should get as output '\nover here!'
 
+   Scenario: print several numbers
+    Given I have a 'print several' program
+    When I run the interpreter
+    Then I should get as output '1              2'
+  
+   Scenario: print numbers in the 5 regions numbers
+    Given I have a 'print five' program
+    When I run the interpreter
+    Then I should get as output '1              2              3              4              5'
+
+
+  Scenario: print should write a new line if they run out of space
+    Given I have a 'print six' program
+    When I run the interpreter
+    Then I should get as output '1              2              3              4              5              \n6'

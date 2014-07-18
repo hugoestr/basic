@@ -46,16 +46,34 @@ class Basic
     @program[line.to_f] = args
   end
 
-  def print( input = ['\n'])
+  def print( expression = ['\n'])
+    result = ''
+    regions = 1
 
-    input = parse_math input  if input.count > 1 
-    token = (input.is_a? Array) ? input.shift : input
-     
-    value = (token =~ /^[a-zA-Z]$/) ? get_var(token) : token
-    value = value.to_i.to_s if value.is_a? Float
+    sections = expression.slice_before ','
+    
+    sections.each do |input|
+      if input.first == ','
+        
+        result += (' ' * (15 - (result.length % 15)) )
+        result += "\n" if regions % 5 == 0
 
-    puts value
-    value
+        regions += 1
+
+        input.shift
+      end
+      
+      input = parse_math input  if input.count > 1 
+      token = (input.is_a? Array) ? input.shift : input
+       
+      value = (token =~ /^[a-zA-Z]$/) ? get_var(token) : token
+      value = value.to_i.to_s if value.is_a? Float
+
+      result += value
+    end
+
+    puts result
+    result
   end
 
   def rem(input)
