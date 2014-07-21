@@ -43,6 +43,11 @@ describe Basic do
       result = @b.print %w( 1 , 2 , 3 , 4 , 5 , 6 )
       result.should match '\n' 
     end
+
+    it "should " do
+      result = @b.print ["Place:", "1" , "Live long and prosper"]
+      result.should == 'Place: 1       Live long and prosper'
+    end
   end
 
   it "rem should return nothing" do

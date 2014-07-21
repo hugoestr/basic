@@ -53,6 +53,8 @@ class Basic
     sections = expression.slice_before ','
     
     sections.each do |input|
+
+      # handle commas for regions 
       if input.first == ','
         
         result += (' ' * (15 - (result.length % 15)) )
@@ -62,11 +64,22 @@ class Basic
 
         input.shift
       end
-      
-      input = parse_math input  if input.count > 1 
+
+      # check for scenario when it is longer than one token 
+      # to see if it is string and number or variable
+      # or a purely mathematical expression
+
+      # figure out if  it is a expression 
+      if input.count > 1 && input.first !~ /[A-Z ]+/ 
+        input = parse_math input  
+      end
+
       token = (input.is_a? Array) ? input.shift : input
-       
+      
+      # figure out if it a variable or a number 
       value = (token =~ /^[a-zA-Z]$/) ? get_var(token) : token
+
+      #transform to string
       value = value.to_i.to_s if value.is_a? Float
 
       result += value
