@@ -45,7 +45,7 @@ describe Basic do
     end
 
     it "should " do
-      result = @b.print ["Place:", "1" , "Live long and prosper"]
+      result = @b.print ["Place: ", "1" , ",", "Live long and prosper"]
       result.should == 'Place: 1       Live long and prosper'
     end
   end

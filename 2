@@ -58,12 +58,12 @@ class Basic
       # or a purely mathematical expression
       begin
         token, input = value_of_expression input
-        puts input.inspect
+        
         value = get_value token 
         value = to_string value
         
         result += value
-      end while input.count >= 1
+      end while input.count > 0
      end
 
     puts result
