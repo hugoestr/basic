@@ -250,12 +250,19 @@ class Basic
     if not line[:expression].nil?
 
       exp_text = line[:expression]
-      type = exp_text.match /['"](?<string>.*)['"]|(?<expression>.*)/
+
+      type = exp_text.match /(?<string>["'].*["'])|(?<expression>.*)/
 
       if not type[:string].nil?
-        expression = [type[:string]]
+        if type[:string] =~ /,/
+          puts "in here #{type[:string]}"
+          expression = type[:string].scan(/"[^"]+"|-?\d*\.?\d+?|,/).
+            map {|s| s.gsub /"/, ''} 
+        else 
+          expression = [type[:string].gsub('"', '')]
+        end
       else
-        items = type[:expression].split " "
+        items = type[:expression].split ' ' #/"[^"]+?"|-?\d+\.?\d+?|[,+<>*=-^]|\w/ 
         expression = parse_expression items
       end
     end 
