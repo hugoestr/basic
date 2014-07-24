@@ -48,7 +48,7 @@ class Print
 
   def value_of_expression(input)
     if input.count > 1 && input.first !~ /[A-Z ]+/ 
-        result = parse_math input  
+        result = @parser.evaluate input  
         input = []
     else
       result = input.shift
@@ -69,12 +69,5 @@ class Print
   def get_var(name)
     @variables[name]
   end
-
-  # should belong to parser
-  def parse_math(tokens)
-    @parser.parse tokens
-    expr = @parser.expression.to_r
-    (eval expr)
-  end
-  
+ 
 end

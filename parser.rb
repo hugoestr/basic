@@ -55,6 +55,12 @@ class Parser
     }
   end
 
+  def evaluate(tokens)
+    parse tokens
+    expr = expression.to_r
+    (eval expr)
+  end
+
   def parse(tokens)
     stack = []
     current = Expression.new 

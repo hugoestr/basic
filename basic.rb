@@ -264,14 +264,7 @@ class Basic
     return items if not flag # back if not assignment in the statement
 
     # Parse the mathematical stuff
-    before << parse_math(after)
-  end
-
-  def parse_math(tokens)
-    p = Parser.new 
-    p.parse tokens
-    expr = p.expression.to_r
-    (eval expr)
+    before << Parser.new.evaluate(after)
   end
 
 end
