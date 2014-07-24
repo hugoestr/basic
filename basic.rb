@@ -53,9 +53,6 @@ class Basic
     expression.slice_before(',').each do |input|
       input, regions, result = check_regions input, regions, result
  
-      # check for scenario when it is longer than one token 
-      # to see if it is string and number or variable
-      # or a purely mathematical expression
       begin
         token, input = value_of_expression input
         puts input.inspect
@@ -65,9 +62,15 @@ class Basic
         result += value
       end while input.count >= 1
      end
+   
+    result = guard_width(result)
 
     puts result
     result
+  end
+
+  def guard_width(text)
+    (text.length > 75) ? text.scan(/.{1,75}/).join("\n") : text
   end
 
   def check_regions(input, regions, result)

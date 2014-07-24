@@ -44,10 +44,28 @@ describe Basic do
       result.should match '\n' 
     end
 
-    it "should " do
+    it "should print literal and region" do
       result = @b.print ["Place: ", "1" , ",", "Live long and prosper"]
       result.should == 'Place: 1       Live long and prosper'
     end
+
+    it "should print string together with an expression " do
+      result = @b.print ["Place: ", "1" , "+", "1", ",", "Live long and prosper"]
+      result.should == 'Place: 2       Live long and prosper'
+    end
+
+    it "should print string together with an variable" do
+      @b.let ["A", "=", "5"] 
+      result = @b.print ["Place: ", "A", ",", "Live long and prosper"]
+      result.should == 'Place: 5       Live long and prosper'
+    end
+
+
+    it "should break a line at 75 characters" do
+      result = @b.print ["This is a bogus long setence that is supposed to go on and on and one without having to stop."]
+      result.should ==  "This is a bogus long setence that is supposed to go on and on and one witho\nut having to stop."
+    end
+
   end
 
   it "rem should return nothing" do
@@ -299,48 +317,32 @@ describe Basic do
     result.should == 5 
   end
 
-
-  describe "line parsing" do 
-    it "should load a line" do
-      @b.line '10 PRINT "Hello World"'
-      @b.program.length.should == 1
-    end
-    describe "read_line" do
-      it " should parse a PRINT statement" do
-        result =  @b.read_line '10 PRINT "Place: " 1 , "Live long and prosper"'
-        result.should == [10, "PRINT", ["Place: ", "1", "," , "Live long and prosper" ]] 
-      end
-     
-      it " should parse a PRINT statement with expression" do
-        result =  @b.read_line '10 PRINT "Place: " 1 + 1 , "Live long and prosper"'
-        result.should == [10, "PRINT", ["Place: ", "2", "," , "Live long and prosper" ]] 
-      end
-   
-      it " should parse a PRINT statement with expression" do
-        @b.let ["A", "=", "2"]
-        result =  @b.read_line '10 PRINT "Place: " A , "Live long and prosper"'
-        result.should == [10, "PRINT", ["Place: ", "2", "," , "Live long and prosper" ]] 
-      end
  
-      it "should parse a PRINT statement with literal" do
-        result =  @b.read_line '10 PRINT "Hello World"'
-        result.should == [10, "PRINT", ["Hello World"]] 
-      end
-
-      it " should parse a let statement" do
-        result =  @b.read_line '10 LET A = 23'
-        result.should == [10, "LET", ["A", "=", 23.0]] 
-      end
-
-      it " should handle end" do
-        result = @b.read_line '10 END'
-        result.should == [10, "END", []]
-      end
-
-      it " should parse" do
-        result = @b.read_line "10 LET A = 4 + 3 * 5 ^ 2"
-        result.should ==  [10, "LET",["A", "=", 79.0]]
-      end
-    end
+  it "should load a line" do
+    @b.line '10 PRINT "Hello World"'
+    @b.program.length.should == 1
   end
+
+  it "read_line should parse a PRINT statement" do
+    result =  @b.read_line '10 PRINT "Hello World"'
+    result.should == [10, "PRINT", ["Hello World"]] 
+  end
+
+  it "read_line should parse a let statement" do
+    result =  @b.read_line '10 LET A = 23'
+    result.should == [10, "LET", ["A", "=", 23.0]] 
+  end
+
+  it "read_line should handle end" do
+    result = @b.read_line '10 END'
+    result.should == [10, "END", []]
+  end
+
+  it "read_line should parse" do
+    result = @b.read_line "10 LET A = 4 + 3 * 5 ^ 2"
+    result.should ==  [10, "LET",["A", "=", 79.0]]
+  end
+
+  describe "running the interpreter" do
+  end  
 end
