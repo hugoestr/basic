@@ -18,6 +18,10 @@ class Basic
       "END" => :end
     }
     @source = []
+
+    @variables.define_singleton_method(:get_var) do |name|
+      self[name]
+    end
   end
 
   def load(file)
