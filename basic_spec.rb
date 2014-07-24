@@ -310,6 +310,18 @@ describe Basic do
         result =  @b.read_line '10 PRINT "Place: " 1 , "Live long and prosper"'
         result.should == [10, "PRINT", ["Place: ", "1", "," , "Live long and prosper" ]] 
       end
+     
+      it " should parse a PRINT statement with expression" do
+        result =  @b.read_line '10 PRINT "Place: " 1 + 1 , "Live long and prosper"'
+        result.should == [10, "PRINT", ["Place: ", "2", "," , "Live long and prosper" ]] 
+      end
+   
+      it " should parse a PRINT statement with expression" do
+        @b.let ["A", "=", "2"]
+        result =  @b.read_line '10 PRINT "Place: " A , "Live long and prosper"'
+        result.should == [10, "PRINT", ["Place: ", "2", "," , "Live long and prosper" ]] 
+      end
+ 
       it "should parse a PRINT statement with literal" do
         result =  @b.read_line '10 PRINT "Hello World"'
         result.should == [10, "PRINT", ["Hello World"]] 
