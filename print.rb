@@ -57,7 +57,7 @@ class Print
   end
   
   def get_value(token)
-    (token =~ /^[a-zA-Z]$/) ? @variables.get_var(token) : token
+    (token =~ /^[a-zA-Z]$/) ? @variables[token] : token
   end
 
   def to_string(value)
